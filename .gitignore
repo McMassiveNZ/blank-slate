@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# MSVC Specific
+*.pdb
+*.exp
+
+build/
+.vs/
+Testing/
