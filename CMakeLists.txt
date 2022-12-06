@@ -17,9 +17,11 @@ OPTION(ENABLE_WARNINGS_AS_ERRORS "Warnings are treated as Errors" ON)
 OPTION(ENABLE_STATIC_ANALYSIS "Enable Static Analysis Tools" ON)
 OPTION(ENABLE_SANITIZERS "Enable Sanitizer Tools" ON)
 
-include(scripts/compilerWarnings.cmake)
-include(scripts/sanitizers.cmake)
-include(scripts/staticanalysis.cmake)
+set(SCRIPTS_DIR ${CMAKE_CURRENT_LIST_DIR}/scripts)
+
+include(${SCRIPTS_DIR}/compilerWarnings.cmake)
+include(${SCRIPTS_DIR}/sanitizers.cmake)
+include(${SCRIPTS_DIR}/staticanalysis.cmake)
 
 if (ENABLE_TESTS)
     message("Unit Testing Enabled")

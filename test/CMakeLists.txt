@@ -1,4 +1,4 @@
-include(${CMAKE_SOURCE_DIR}/scripts/googletest.cmake)
+include(${SCRIPTS_DIR}/googletest.cmake)
 
 add_executable(
   blank-slate-test
