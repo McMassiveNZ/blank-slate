@@ -94,13 +94,13 @@ function(target_warnings_as_errors _target)
         target_compile_options(
             ${_target}
             PUBLIC
-            -WError
+            -Werror
         )
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         target_compile_options(
             ${_target}
             PUBLIC
-            -WError
+            -Werror
         )
     endif()
 endfunction()
