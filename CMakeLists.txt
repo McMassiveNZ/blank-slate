@@ -19,7 +19,7 @@ OPTION(ENABLE_SANITIZERS "Enable Sanitizer Tools" ON)
 
 set(SCRIPTS_DIR ${CMAKE_CURRENT_LIST_DIR}/scripts)
 
-include(${SCRIPTS_DIR}/compilerWarnings.cmake)
+include(${SCRIPTS_DIR}/compilerwarnings.cmake)
 include(${SCRIPTS_DIR}/sanitizers.cmake)
 include(${SCRIPTS_DIR}/staticanalysis.cmake)
 
