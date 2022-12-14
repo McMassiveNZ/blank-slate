@@ -35,7 +35,7 @@ jobs:
         submodules: true
 
     - name: bootstrap-vcpkg
-      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.${{BOOTSTRAP_EXT}}
+      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.${{matrix.BOOTSTRAP_EXT}}
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
