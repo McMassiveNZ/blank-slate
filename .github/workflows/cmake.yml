@@ -21,12 +21,11 @@ jobs:
       matrix:
         os: [windows-latest, ubuntu-latest]
         BUILD_TYPE: [Debug, Release]
-        BOOTSTRAP_EXT: [bat, sh]
-        exclude:
+        include:
           - os: windows-latest
-          - BOOTSTRAP_EXT: sh
+          - BOOTSTRAP: bootstrap-vcpkg.bat
           - os: ubuntu-latest
-          - BOOTSTRAP_EXT: bat
+          - BOOTSTRAP: bootstrap-vcpkg.sh
 
     steps:
     - name: checkout
@@ -35,7 +34,7 @@ jobs:
         submodules: true
 
     - name: bootstrap-vcpkg
-      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.${{matrix.BOOTSTRAP_EXT}}
+      run: ${{github.workspace}}/external/vcpkg/${{matrix.BOOTSTRAP}}
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
