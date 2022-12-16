@@ -5,6 +5,9 @@ add_executable(
     main.cpp
 )
 
+find_package(spdlog CONFIG REQUIRED)
+target_link_libraries(${current_target} PRIVATE spdlog::spdlog spdlog::spdlog_header_only)
+
 if( ENABLE_ALL_REASONABLE_WARNINGS )
     MESSAGE("Additional Warnings Enabled")
     target_enable_warnings(${current_target})

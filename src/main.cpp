@@ -1,8 +1,8 @@
-#include <cstdio>
+#include <spdlog/spdlog.h>
 
 auto main() -> int
 {
-	printf("Hello, World!");
+    spdlog::trace("Hello, World!");
 	return 0;
 }
 
