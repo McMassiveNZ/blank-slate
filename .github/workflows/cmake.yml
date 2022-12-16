@@ -40,11 +40,11 @@ jobs:
     - name: Boostrap Vcpkg
       run: ${{github.workspace}}/external/vcpkg/${{matrix.bootstrap}} -disableMetrics
 
-    - if: runner.os == 'Windows
+    - if: runner.os == 'Windows'
       name: Install packaged dependencies
       run: ${{github.workspace}}\external\vcpkg\vcpkg.exe install spdlog --triplet ${{matrix.triplet}}
 
-    - if: runner.os != 'Windows
+    - if: runner.os != 'Windows'
       name: Install packaged dependencies
       run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet ${{matrix.triplet}}
 
