@@ -23,13 +23,9 @@ jobs:
         build_configuration: [Debug, Release]
         include:
           - os: windows-latest
-          - bootstrap: bootstrap-vcpkg.bat
           - triplet: x64-windows
-          - vcpkg: vcpkg.exe
           - os: ubuntu-latest
-          - bootstrap: bootstrap-vcpkg.sh
           - triplet: x64-linux
-          - vcpkg: vcpkg
 
     steps:
     - name: checkout
@@ -38,7 +34,7 @@ jobs:
         submodules: true
 
     - name: Boostrap Vcpkg
-      run: ${{github.workspace}}/external/vcpkg/${{matrix.bootstrap}} -disableMetrics
+      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg -disableMetrics
 
     - if: runner.os == 'Windows'
       name: Install packaged dependencies
