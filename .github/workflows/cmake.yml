@@ -20,6 +20,16 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest]
+        build_configuration: [Debug, Release]
+        include:
+          - os: windows-latest
+          - bootstrap: bootstrap-vcpkg.bat
+          - triplet: x64-windows
+          - vcpkg: vcpkg.exe
+          - os: ubuntu-latest
+          - bootstrap: bootstrap-vcpkg.sh
+          - triplet: x64-linux
+          - vcpkg: vcpkg
 
     steps:
     - name: checkout
@@ -27,21 +37,11 @@ jobs:
       with:
         submodules: true
 
-    - if: runner.os == 'Windows'
-      name: Boostrap Vcpkg
-      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.bat -disableMetrics
+    - name: Boostrap Vcpkg
+      run: ${{github.workspace}}/external/vcpkg/${{matrix.bootstrap}} -disableMetrics
 
-    - if: runner.os != 'Windows'
-      name: Boostrap Vcpkg
-      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
-
-    - if: runner.os == 'Windows'
-      name: Install packaged dependencies
-      run: ${{github.workspace}}\external\vcpkg\vcpkg.exe install spdlog --triplet x64-windows
-
-    - if: runner.os != 'Windows'
-      name: Install packaged dependencies
-      run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet x64-linux
+    - name: Install packaged dependencies
+      run: ${{github.workspace}}/external/vcpkg/${{matrix.vcpkg}} install spdlog --triplet ${{matrix.triplet}}
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
