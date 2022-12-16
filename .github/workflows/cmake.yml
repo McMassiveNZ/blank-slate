@@ -20,7 +20,14 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest]
-        BUILD_TYPE: [Debug, Release]
+        build_configuration: [Debug, Release]
+        include:
+          - os: windows-latest
+          - bootstrap: bootstrap-vcpkg.bat
+          - triplet: x64-windows
+          - os: ubuntu-latest
+          - bootstrap: bootstrap-vcpkg.sh
+          - triplet: x64-linux
 
     steps:
     - name: checkout
@@ -28,27 +35,25 @@ jobs:
       with:
         submodules: true
 
-    - name: bootstrap vcpkg
-      if: runner.os == 'windows'
-      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.bat -disableMetrics
+    - name: Boostrap Vcpkg
+      run: ${{github.workspace}}/external/vcpkg/${{matrix.bootstrap}} -disableMetrics
 
-    - name: bootstrap vcpkg
-      if: runner.os != 'windows'
-      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+    - name: Install packaged dependencies
+      run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet ${{matrix.triplet}}
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} 
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.build_configuration}} 
         -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/external/vcpkg/scripts/buildsystems/vcpkg.cmake
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{matrix.build_configuration}}
 
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{matrix.BUILD_TYPE}}
+      run: ctest -C ${{matrix.build_configuration}}
 
