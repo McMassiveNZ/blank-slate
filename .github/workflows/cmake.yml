@@ -41,7 +41,10 @@ jobs:
       run: ${{github.workspace}}/external/vcpkg/${{matrix.bootstrap}} -disableMetrics
 
     - name: Install packaged dependencies
-      run: ${{github.workspace}}/external/vcpkg/${{matrix.vcpkg}} install spdlog --triplet ${{matrix.triplet}}
+      if: runner.os == 'Windows
+        run: ${{github.workspace}}\external\vcpkg\vcpkg.exe install spdlog --triplet ${{matrix.triplet}}
+      else:
+        run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet ${{matrix.triplet}}
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
