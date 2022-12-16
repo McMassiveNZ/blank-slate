@@ -32,6 +32,7 @@ jobs:
       if: runner.os == 'windows'
       run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.bat -disableMetrics
 
+    - name: bootstrap vcpkg
       if: runner.os != 'windows'
       run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
 
