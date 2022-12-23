@@ -24,8 +24,10 @@ jobs:
         include:
           - os: 'windows-latest'
             triplet: x64-windows
+            shell_ext: bat
           - os: 'ubuntu-latest'
             triplet: x64-linux
+            shell_ext: sh
 
     steps:
     - name: checkout
@@ -40,7 +42,7 @@ jobs:
     #- if: runner.os != 'Windows'
     - name: Boostrap Vcpkg
       #run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
-      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg -disableMetrics
+      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.${{matrix.shell_ext}} -disableMetrics
 
     - name: Install packaged dependencies
       run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet ${{matrix.triplet}}
