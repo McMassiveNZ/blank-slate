@@ -21,6 +21,11 @@ jobs:
       matrix:
         os: [windows-latest, ubuntu-latest]
         build_configuration: [Debug, Release]
+        include:
+          - os: 'windows-latest'
+          - triplet: x64-windows
+          - os: 'ubuntu-latest'
+          - triplet: x64-linux
 
     steps:
     - name: checkout
@@ -36,13 +41,14 @@ jobs:
       name: Boostrap Vcpkg
       run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
 
-    - if: runner.os == 'Windows'
-      name: Install packaged dependencies
-      run: ${{github.workspace}}\external\vcpkg\vcpkg.exe install spdlog --triplet x64-windows
+    #- if: runner.os == 'Windows'
+    #  name: Install packaged dependencies
+    #  run: ${{github.workspace}}\external\vcpkg\vcpkg.exe install spdlog --triplet x64-windows
 
-    - if: runner.os != 'Windows'
-      name: Install packaged dependencies
-      run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet x64-linux
+    #- if: runner.os != 'Windows'
+    - name: Install packaged dependencies
+      #run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet x64-linux
+      run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet ${{matrix.triplet}}
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
