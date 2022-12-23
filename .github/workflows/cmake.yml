@@ -19,7 +19,7 @@ jobs:
     strategy: 
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
         build_configuration: [Debug, Release]
         include:
           - os: 'windows-latest'
@@ -27,6 +27,9 @@ jobs:
             vcpkg_bootstrap: bootstrap-vcpkg.bat
           - os: 'ubuntu-latest'
             triplet: x64-linux
+            vcpkg_bootstrap: bootstrap-vcpkg.sh
+          - os: 'macos-latest'
+            triplet: x64-osx
             vcpkg_bootstrap: bootstrap-vcpkg.sh
 
     steps:
