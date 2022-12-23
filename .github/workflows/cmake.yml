@@ -33,21 +33,16 @@ jobs:
       with:
         submodules: true
 
-    - if: runner.os == 'Windows'
-      name: Boostrap Vcpkg
-      run: ${{github.workspace}}\external\vcpkg\bootstrap-vcpkg.bat -disableMetrics
-
-    - if: runner.os != 'Windows'
-      name: Boostrap Vcpkg
-      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
-
     #- if: runner.os == 'Windows'
-    #  name: Install packaged dependencies
-    #  run: ${{github.workspace}}\external\vcpkg\vcpkg.exe install spdlog --triplet x64-windows
+    #  name: Boostrap Vcpkg
+    #  run: ${{github.workspace}}\external\vcpkg\bootstrap-vcpkg.bat -disableMetrics
 
     #- if: runner.os != 'Windows'
+    - name: Boostrap Vcpkg
+      #run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg -disableMetrics
+
     - name: Install packaged dependencies
-      #run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet x64-linux
       run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet ${{matrix.triplet}}
 
     - name: Configure CMake
