@@ -28,31 +28,33 @@ jobs:
       with:
         submodules: true
 
-    #- if: runner.os == 'Windows'
     - name: Boostrap Vcpkg
-      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg -disableMetrics
+      if: runner.os == 'Windows'
+      run: ${{github.workspace}}\external\vcpkg\bootstrap-vcpkg.bat -disableMetrics
+      if: runner.os != 'Windows'
+      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
 
-    - if: runner.os == 'Windows'
-      name: Install packaged dependencies
-      run: ${{github.workspace}}\external\vcpkg\vcpkg.exe install spdlog --triplet x64-windows
+    #- if: runner.os == 'Windows'
+    #  name: Install packaged dependencies
+    #  run: ${{github.workspace}}\external\vcpkg\vcpkg.exe install spdlog --triplet x64-windows
 
-    - if: runner.os != 'Windows'
-      name: Install packaged dependencies
-      run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet x64-linux
+    #- if: runner.os != 'Windows'
+    #  name: Install packaged dependencies
+    #  run: ${{github.workspace}}/external/vcpkg/vcpkg install spdlog --triplet x64-linux
 
-    - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.build_configuration}} 
-        -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/external/vcpkg/scripts/buildsystems/vcpkg.cmake
+    #- name: Configure CMake
+    #  # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+    #  # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+    #  run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.build_configuration}} 
+    #    -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/external/vcpkg/scripts/buildsystems/vcpkg.cmake
 
-    - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{matrix.build_configuration}}
+    #- name: Build
+    #  # Build your program with the given configuration
+    #  run: cmake --build ${{github.workspace}}/build --config ${{matrix.build_configuration}}
 
-    - name: Test
-      working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration.
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{matrix.build_configuration}}
+    #- name: Test
+    #  working-directory: ${{github.workspace}}/build
+    #  # Execute tests defined by the CMake configuration.
+    #  # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+    #  run: ctest -C ${{matrix.build_configuration}}
 
