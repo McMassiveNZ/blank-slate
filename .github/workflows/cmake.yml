@@ -23,9 +23,9 @@ jobs:
         build_configuration: [Debug, Release]
         include:
           - os: 'windows-latest'
-          - triplet: x64-windows
+            triplet: x64-windows
           - os: 'ubuntu-latest'
-          - triplet: x64-linux
+            triplet: x64-linux
 
     steps:
     - name: checkout
