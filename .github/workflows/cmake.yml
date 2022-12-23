@@ -29,10 +29,10 @@ jobs:
         submodules: true
 
     - name: Boostrap Vcpkg
-      - if: runner.os == 'Windows'
-        run: ${{github.workspace}}\external\vcpkg\bootstrap-vcpkg.bat -disableMetrics
-      - if: runner.os != 'Windows'
-        run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+    - if: runner.os == 'Windows'
+      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+    - if: runner.os != 'Windows'
+      run: ${{github.workspace}}/external/vcpkg/bootstrap-vcpkg.sh -disableMetrics
 
     #- if: runner.os == 'Windows'
     #  name: Install packaged dependencies
