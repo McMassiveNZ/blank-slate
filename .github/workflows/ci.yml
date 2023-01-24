@@ -22,7 +22,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         build_configuration: [Debug, Release]
         compiler: [llvm, gcc]
-        vcpkg_bootstrap: bootstrap-vcpkg.sh
+        vcpkg_bootstrap: [bootstrap-vcpkg.sh]
         include:
           - os: 'windows-latest'
             triplet: x64-windows
