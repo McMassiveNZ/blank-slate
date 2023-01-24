@@ -28,8 +28,17 @@ jobs:
             triplet: x64-windows
             vcpkg_bootstrap: bootstrap-vcpkg.bat
             compiler: "msvc"
+            build_configuration: Debug
+            
+          - os: 'windows-latest'
+            triplet: x64-windows
+            vcpkg_bootstrap: bootstrap-vcpkg.bat
+            compiler: "msvc"
+            build_configuration: Release
+            
           - os: 'ubuntu-latest'
             triplet: x64-linux
+            
           - os: 'macos-latest'
             triplet: x64-osx
 
@@ -49,7 +58,7 @@ jobs:
           ${{ env.XDG_CACHE_HOME }}/vcpkg/archives
           ${{ env.LOCALAPPDATA }}\vcpkg\archives
           ${{ env.APPDATA }}\vcpkg\archives
-        key: ${{ runner.os }}-${{ matrix.compiler }}-${{ env.BUILD_TYPE }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('./vcpkg.json')}}
+        key: ${{ runner.os }}-${{ matrix.compiler }}-${{ matrix.build_configuration }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('./vcpkg.json')}}
         restore-keys: |
           ${{ runner.os }}-${{ env.BUILD_TYPE }}-
 
