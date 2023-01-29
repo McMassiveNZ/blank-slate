@@ -27,6 +27,7 @@ jobs:
         include:
           - os: 'windows-latest'
             triplet: x64-windows
+          - os: 'windows-latest'
             vcpkg_bootstrap: bootstrap-vcpkg.bat
           - os: 'ubuntu-latest'
             triplet: x64-linux
