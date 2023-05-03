@@ -20,7 +20,7 @@ include(${CMAKE_SCRIPTS_DIR}/sanitizers.cmake)
 include(${CMAKE_SCRIPTS_DIR}/staticanalysis.cmake)
 
 if (ENABLE_TESTS)
-    message("Unit Testing Enabled")
+    message("-- Unit Testing Enabled")
     enable_testing()
     add_subdirectory(test)
 endif()
