@@ -3,7 +3,7 @@ include_guard()
 CPMAddPackage(
   NAME googletest
   GITHUB_REPOSITORY google/googletest
-  GIT_TAG v1.12.1
+  GIT_TAG release-1.12.1
   VERSION 1.12.1
   OPTIONS
       "INSTALL_GTEST OFF"
