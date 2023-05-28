@@ -62,13 +62,12 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v3
-      with:
-        submodules: true
 
     - name: cache
       uses: actions/cache@v3
-      path: "**/cpm_modules"
-          key: ${{ github.workflow }}-cpm-modules-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake') }}
+      with:
+        path: "**/cpm_modules"
+        key: ${{ github.workflow }}-cpm-modules-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake') }}
 
     - name: setup dependencies
       uses: aminya/setup-cpp@v1
