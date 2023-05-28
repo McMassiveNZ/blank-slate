@@ -5,8 +5,9 @@ add_executable(
     main.cpp
 )
 
-find_package(spdlog CONFIG REQUIRED)
-target_link_libraries(${current_target} PRIVATE spdlog::spdlog spdlog::spdlog_header_only)
+CPMAddPackage("gh:fmtlib/fmt#10.0.0")
+target_link_libraries(${current_target} PRIVATE fmt::fmt)
+set_property(TARGET fmt PROPERTY FOLDER third_party/fmt)
 
 if( ENABLE_ALL_REASONABLE_WARNINGS )
     MESSAGE("-- Additional Warnings Enabled")
