@@ -3,6 +3,5 @@
 auto main() -> int
 {
     fmt::print("Hello, World!");
-	return 0;
 }
 
