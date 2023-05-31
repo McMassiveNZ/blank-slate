@@ -66,7 +66,7 @@ jobs:
     - name: cache
       uses: actions/cache@v3
       with:
-        path: "**/cpm_modules"
+        path: "**/CPM_modules"
         key: ${{ github.workflow }}-cpm-modules-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake') }}
 
     - name: Configure CMake
