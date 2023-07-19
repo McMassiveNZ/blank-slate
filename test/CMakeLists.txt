@@ -1,4 +1,4 @@
-include(${CMAKE_SCRIPTS_DIR}/googletest.cmake)
+include(gtest)
 
 add_executable(
   blank-slate-test
